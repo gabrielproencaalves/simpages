@@ -1,0 +1,11 @@
+// Recommended style for
+// images if you are using
+// the default style.css file of
+// the simpages project
+
+img {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  border: 1px black;
+}

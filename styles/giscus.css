@@ -1,0 +1,7 @@
+// Recommended style for Giscus comment system
+// if you are using the default style.css file
+// of the simpages project
+
+.giscus {
+  padding-top: calc(3 * 0.444em);
+}

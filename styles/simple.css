@@ -1,0 +1,43 @@
+// Recommended style for text if you are
+// using the default style.css file of
+// the simpages project
+
+/*
+	Para garantir a compatibilidade entre este estilo e navegadores antigos, as
+	unidades de medida do css consideradas "modernas" serão substituídas por
+	alternativas semelhantes.
+	Em vez de ch, por exemplo, usaremos a expressão f(x) = x * 0.444em, em que x
+	é largura da quantidade desejada de caracteres.
+*/
+
+body {
+  max-width: calc(80 * 0.444em);
+  margin: auto;
+  padding: 0.444em;
+  font-size: 12pt;
+  font-family: serif;
+}
+
+article p {
+  text-indent: calc(4 * 0.444em);
+  text-align: justify;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 12pt 0;
+}
+
+p {
+  margin: 0;
+}
+
+h1, footer {
+  text-align: center;
+}
+
+/* Extra definitions... */
+
+.last-modified {
+  text-align: end;
+  font-size: 8pt;
+}
