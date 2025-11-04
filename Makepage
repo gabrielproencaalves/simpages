@@ -1,0 +1,99 @@
+#!/bin/python3
+from sys import argv
+from os import system, remove
+from time import strftime
+
+LASTMODIFIED = strftime(
+  '<p class="last-modified">'
+  'Last modified on %m/%d/%Y at %_H:%M hours.'
+  '</p>\n'
+)
+
+# Replace whole line storing oldexp by newexp. Substitui uma linha toda contendo oldexp
+# por newexp.
+def freplace(f, oldexp, newexp):
+    # Name of temporary file. Nome do arquivo temporario.
+    tmpf_name = f.name + '.tmp'
+
+    # A temporary file. Um arquivo temporario.
+    tmpf = open(tmpf_name, 'wt+')
+
+    # Set the main file cursor to the start. Mova o cursor do arquivo principal
+    # ao inicio.
+    f.seek(0)
+
+    # For each line. Para cada linha.
+    for line in f:
+        # If the wanted expression is found. Se a expressao buscada for
+        # encontrada.
+        if oldexp in line:
+          # Escreva a nova expressao no arquivo temporario
+          tmpf.write(newexp)
+          continue
+
+        # Senao escreva a linha atual no arquivo temporario
+        tmpf.write(line)
+
+    # Clear the main file and move the temporary file cursor to the start.
+    # Limpe o arquivo principal e mova o cursor do temporario ao inicio.
+    f.seek(0)
+    f.truncate()
+    tmpf.seek(0)
+    f.write(tmpf.read())
+
+    # Close and remove the temporary file. Feche e remova o arquivo temporario.
+    tmpf.close()
+    remove(tmpf_name)
+
+if __name__ == '__main__':
+
+    # If there is no arguments, warn the user. Se nao houverem argumentos,
+    # avise o usuario.
+    assert len(argv) > 1, 'USAGE: ./Makepage path/to/markdown/file.md'
+
+    # File of markdown contents. Arquivo de conteudos markdown.
+    INPUTFILE = open(argv[1], 'rt')
+
+    # Path of final file. Caminho do arquivo final.
+    OUTPUTNAME = '/'.join(INPUTFILE.name.split('/')[0:-1] + ['index.html'])
+
+    # Concatenate header, content and footer in markdown draft. Concatenar
+    # cabecalho, conteudo e rodape em rascunho markdown.
+    HEADER = open('templates/header.md', 'rt')
+    FOOTER = open('templates/footer.md', 'rt')
+    DRAFTFILE  = open('draftfile.md', 'wt+')
+    DRAFTFILE.write(HEADER.read() + INPUTFILE.read() + FOOTER.read())
+    HEADER.close()
+    INPUTFILE.close()
+    FOOTER.close()
+    DRAFTFILE.close()
+
+    # File of <head> conf of final doctype. Arquivo de conf do <head> do
+    # doctype final.
+    HEADCONF = open('templates/head.html', 'rt')
+
+    # File of final header conf. Arquivo de conteudos do cabecalho final.
+    NAVCONF  = open('templates/nav.html', 'rt')
+
+    # Convert markdown to doctype, complementing some details. Converter
+    # rascunho markdown para doctype, complementando alguns detalhes.
+    system(f'lowdown -sthtml draftfile.md -o {OUTPUTNAME}')
+
+    with open(OUTPUTNAME, 'rt+') as OUTPUTFILE:
+        freplace(OUTPUTFILE, '</head>', HEADCONF.read())
+        freplace(OUTPUTFILE, '<body>', NAVCONF.read())
+        freplace(OUTPUTFILE, ';;;StartMainContent', '<article>\n')
+        freplace(OUTPUTFILE, ';;;EndMainContent', '</article>\n')
+        freplace(
+          OUTPUTFILE,
+          ';;;InfoLastModified',
+          LASTMODIFIED
+        )
+        freplace(OUTPUTFILE, ';;;CommentsArea', '<div class="giscus"></div>\n')
+        freplace(OUTPUTFILE, ';;;StartFooter', '<footer>\n')
+        freplace(OUTPUTFILE, ';;;EndFooter', '</footer>\n')
+
+    # Close open files. Fechar arquivos abertos.
+    HEADCONF.close()
+    NAVCONF.close()
+    remove('draftfile.md')
