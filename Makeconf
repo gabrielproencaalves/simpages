@@ -1,0 +1,93 @@
+#!/bin/sh
+
+NEWLINE="
+"
+
+question(){
+  printf "$1"
+  read answer
+  [ "$2" = "$answer" ]
+  return $?
+}
+
+genconf(){
+  TARGET="$1"
+  TARGET_PATH="$(echo $TARGET | sed 's/[[:alnum:]\ ._]*$//')"
+
+  CONFIG_OUTPUT="$TARGET_PATH""index.md:$NEWLINE"
+  CONFIG_OUTPUT="$CONFIG_OUTPUT""> ./Makepage $TARGET_PATH""index.md"
+
+  question "Navigation bar? [s/n] " "s"
+  if [ $? -ne 0 ]
+  then
+    SED_ARGS="$SED_ARGS \\""$NEWLINE"
+    SED_ARGS="$SED_ARGS""> -e '/nav/d'"
+  else
+    question "Navigation arrows? [s/n] " "s"
+    if [ $? -ne 0 ]
+    then
+      SED_ARGS="$SED_ARGS \\""$NEWLINE"
+      SED_ARGS="$SED_ARGS""> -e '/nav arrow/d'"
+    fi
+  fi
+
+  question "Last modification? [s/n] " "s"
+  if [ $? -ne 0 ]
+  then
+    SED_ARGS="$SED_ARGS \\""$NEWLINE"
+    SED_ARGS="$SED_ARGS""> -e '/last-modified/d'"
+  fi
+
+  question "Style for images? [s/n] " "s"
+  if [ $? -ne 0 ]
+  then
+    SED_ARGS="$SED_ARGS"" \\""$NEWLINE"
+    SED_ARGS="$SED_ARGS""> -e '/images\.css/d'"
+  fi
+
+  question "Style for tables? [s/n] " "s"
+  if [ $? -ne 0 ]
+  then
+    SED_ARGS="$SED_ARGS"" \\""$NEWLINE"
+    SED_ARGS="$SED_ARGS""> -e '/table\.css/d'"
+  fi
+
+  question "Comentários? [s/n] " "s"
+  if [ $? -ne 0 ]
+  then
+    SED_ARGS="$SED_ARGS \\""$NEWLINE"
+    SED_ARGS="$SED_ARGS""> -e '/giscus/d'"
+  fi
+
+  if [ "$SED_ARGS" ]
+  then
+    CONFIG_OUTPUT="$CONFIG_OUTPUT""$NEWLINE"
+    CONFIG_OUTPUT="$CONFIG_OUTPUT""> sed -i ""$TARGET_PATH""index.html"
+    CONFIG_OUTPUT="$CONFIG_OUTPUT""$SED_ARGS"
+  fi
+
+  echo "" > generated_conf.txt
+  echo "$CONFIG_OUTPUT" >> generated_conf.txt
+}
+
+main(){
+  for MDFILE in $(./Makescan)
+  do
+    MDFILE=$(echo "$MDFILE" | cut -c 3-)
+    if ! grep "$MDFILE" Makefile > /dev/null
+    then
+      question "./$MDFILE is not included in Makefile. Do you want to configure it? [s/n] " "s"
+      if [ $? -ne 0 ]
+      then
+        echo "Ignoring..."
+      else
+        genconf "$MDFILE"
+        cat generated_conf.txt >> Makefile
+        rm generated_conf.txt
+        echo "$MDFILE configured sucessfully."
+      fi
+    fi
+  done
+}
+
+main $@
