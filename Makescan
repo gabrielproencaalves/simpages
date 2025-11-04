@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# This script searches index.md files recursively in the working directory
+
+Makescan() {
+  for file in $(ls $1)
+  do
+    if [ "$file" = "index.md" ]
+    then
+      echo "$1/index.md"
+    fi
+
+    if [ -d "$1/$file" ]
+    then
+      Makescan "$1/$file"
+    fi
+  done
+}
+
+Makescan .
