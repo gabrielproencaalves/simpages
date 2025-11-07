@@ -1,3 +1,5 @@
+[pt-BR](./README.pt-BR.md)
+
 # Explanation of templates directory
 
 This directory contains the basic structural parts of content for building an
