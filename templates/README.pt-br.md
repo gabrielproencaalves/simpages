@@ -1,3 +1,5 @@
+[Voltar](.)
+
 # Explicação do diretório de templates
 
 Este diretório detém as partes estruturais básicas de conteúdo envolvidas na
