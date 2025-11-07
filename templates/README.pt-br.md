@@ -75,8 +75,68 @@ deverá haver uma linha horizontal separadora no documento final.
 
 Na linha 9, há um exemplo falso de Copyright.
 
-Na linha 11, há um exemplo de email faso.
+Na linha 11, há um exemplo de email falso.
 
 Na linha 13, repete-se o conteúdo da linha 7.
 
 Na linha 15, o token `;;;EndFooter` delimita, para o Makepage, o fim do rodapé.
+
+## head.html
+
+Por padrão, o arquivo head.html é o terceiro template lido pelo script Makepage
+após a construção inicial da página HTML e ele armazena as configurações que serão inseridas no head do HTML final. Desse modo, seu conteúdo é
+
+```
+1 <link rel="icon" type="image/x-icon" href="/absolute/path/to/website/icon.ico">
+2 <!-- Insert here the giscus configuration
+3 tag for your page if you want -->
+4 </head>
+```
+
+Na linha 1, a tag link aponta inicialmente a um ícone inexistente para o site.
+Por isso, ela deve ser reconfigurada para indicar um path absoluto e verdadeiro
+de um ícone que represente o site.
+
+Nas linhas 2 e 3, há um comentário em HTML sugerindo a inserção de uma
+configuração personalizada do [giscus](https://giscus.app).
+
+Na linha 4, tem-se a tag de fechamento do head para repor o `</head>` removido
+da página HTML final durante a inserção do conteúdo de head.html pelo script
+Makepage.
+
+## nav.html
+
+Lido posteriormente aos arquivos acima, o nav.html retém essencialmente os
+links de navegação no site que serão postos no topo das páginas HTML geradas.
+Seu conteúdo padrão é
+
+```
+1 <body>
+2 <nav><!-- nav -->
+3 <a href=""><===</a><!-- nav arrow -->
+4 <a href="..">(BACK)</a><!-- nav back -->
+5 <a href="">===></a><!-- nav arrow -->
+6 </nav><!-- nav endtag -->
+7 <hr/>
+8 ;;;StartMainContent
+9 ;;;InfoLastModified
+```
+
+Na linha 1, está a tag de abertura do body para repor a removida da página HTML
+final durante a inserção do conteúdo de nav.html pelo script Makepage.
+
+Na linha 2, está a tag de abertura do bloco de navegação.
+
+Na linha 3, está um link legendado com uma seta direcionada para a esquerda e o link, por estar desconfigurado, não aponta para lugar algum.
+
+Na linha 4, há um link exibido como "(BACK)" e ele aponta para o diretório pai.
+
+Na linha 5, de modo similar à linha 3, há um link de seta para a direita e ele não possui destino definido.
+
+Na linha 6, está a tag de fechamento do bloco de navegação.
+
+Na linha 7, há uma tag de linha horizontal.
+
+Na linha 8, está o token ";;;StartMainContent", o qual delimita o início do conteúdo principal da página.
+
+Na linha 9, está o token ";;;InfoLastModified", o qual será sobrescrito pela data e pela hora de última modificação da página.
