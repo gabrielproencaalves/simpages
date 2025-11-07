@@ -1,4 +1,4 @@
-[pt-BR](./README.pt-BR.md)
+[pt-BR](./README.pt-br.md)
 
 # Explanation of templates directory
 
