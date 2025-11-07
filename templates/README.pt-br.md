@@ -67,7 +67,9 @@ Na linha 1, o token `;;;EndMainContent` delimita, para o script Makepage, o fim
 do artigo principal.
 
 Na linha 3, o token `;;;CommentsArea` indica, para o Makepage, a localização da
-seção de comentários no documento. Na linha 5, o token `;;;StartFooter`
+seção de comentários no documento.
+
+Na linha 5, o token `;;;StartFooter`
 delimita, para o Makepage o início do rodapé.
 
 Na linha 7, os três sinais consecutivos de subtração indicam ao lowdown que ali
