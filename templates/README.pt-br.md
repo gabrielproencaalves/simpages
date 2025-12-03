@@ -2,15 +2,13 @@
 
 # Explicação do diretório de templates
 
-Este diretório detém as partes estruturais básicas de conteúdo envolvidas na
-montagem das páginas HTML geradas pelo simpage. Essas partes são separadas em
-arquivos que, durante a geração das páginas, são lidos e seu conteúdo é
-inserido na página final, completando sua estrutura. Além disso, esses arquivos
-são: head.html, header.md, footer.md e nav.html. Lembre-se: você tem total
-liberdade de modificá-los para adequá-los às tuas necessidades, inclusive os
-scripts podem ser modificados, embora isso possa quebrar o projeto se
-não for feito adequadamente. Adiante, estão explicações acerca da composição e
-finalidade de cada arquivo neste diretório.
+Este README, como também é dito no README principal do projeto, busca explicar
+a pasta templates, seus arquivos e funções. E, antes da explicação de cada
+template, está posta adiante uma definição de template, válida para este
+projeto, especificamente. Um template é um arquivo de texto contendo um modelo
+genérico de estrutura de página que deve ser sempre reutilizado na montagem dos
+arquivos HTML, como um molde. Neste projeto, existem quatro templates
+destinados a compor uniformemente diferentes pedaços do documento HTML final, preenchendo sua estrutura básica. E esses templates são: head.html, header.md, footer.md e nav.html. Além disso, eles podem ser modificados livremente como os scripts do simpage, no entanto, alterações feitas incorretamente, ou de modo incompleto, podem quebrar todo o projeto até serem corrigidas ou desfeitas. Finalmente, as informações abaixo explicam a composição e a finalidade de cada tmeplate deste diretório.
 
 ## header.md
 
