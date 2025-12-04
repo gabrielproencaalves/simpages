@@ -2,13 +2,7 @@
 
 # Explanation of templates directory
 
-This directory contains the basic structural parts of content for building an
-HTML page using the standard simpage template. And these parts are separated
-into files that, when the pages are generated, are read and their content is
-inserted into the final page, completing its structure. Additionally, these
-files are: head.html, header.md, footer.md and nav.html. Remember: you have
-complete freedom to modify them to suit your needs, even the generator scripts
-can be modified, although this could break the project if not done properly. Below are explanations about the composition and purpose of each file in this directory.
+This README, as also stated in the project's main README, aims to explain the templates folder, its files, and functions. Before explaining each template, a definition of a template, valid specifically for this project, is provided below. A template is a text file containing a generic page structure model that should always be reused when assembling HTML files, like a mold. In this project, there are four templates intended to uniformly compose different parts of the final HTML document, filling its basic structure. These templates are: head.html, header.md, footer.md, and nav.html. Furthermore, they can be freely modified like simpage scripts; however, incorrect or incomplete changes can break the entire project until they are corrected or undone. Finally, the information below explains the composition and purpose of each template in this directory.
 
 ## header.md
 
