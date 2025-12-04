@@ -12,8 +12,16 @@ Neste arquivo, são explicados os scripts envolvidos no funcionamento do simpage
 
 ## Makefile
 
-Normalmente, o Makefile é o primeiro arquivo interpretado durante a execução do projeto e ele possui uma função muito similar à de um arquivo makefile em um projeto de programa escrito em C, no entanto, em vez de automatizar a compilação de arquivos c, o Makefile do simpages automatiza a montagem de páginas HTML feita a partir de arquivos markdown pertencentes à estrutura de diretórios do projeto. Ou seja, no Makefile ficam registrados quais arquivos markdown internos ao diretório do simpages devem ser lidos e quais templates devem ser usados para montá-los. Porém, o Makefile é incapaz de descobrir sozinho onde está cada artigo markdown a ser lido. Por isso, um script precisa ser acionado pelo usuário para percorrer recursivamente o diretório do simpages em busca de arquivos markdown e para registrá-los no arquivo Makefile configurados de acordo com as preferências do usuário: o script responsável por isso é o Makeconf.
+Uso: `$ Make` ou `$ Make caminho/para/arquivo/markdown/index.md`
+
+Normalmente, o Makefile é o primeiro arquivo interpretado durante a execução do projeto e ele possui uma função muito similar à de um arquivo makefile em um projeto de programa escrito em C, no entanto, em vez de automatizar a compilação de arquivos c, o Makefile do simpages automatiza a montagem de páginas HTML feita a partir de arquivos markdown pertencentes à estrutura de diretórios do projeto. Ou seja, no Makefile ficam registrados quais arquivos `index.md` internos ao diretório do simpages devem ser lidos e quais templates devem ser usados para montá-los. Porém, o Makefile é incapaz de descobrir sozinho onde está cada artigo markdown a ser lido. Por isso, um script precisa ser acionado pelo usuário para percorrer recursivamente o diretório do simpages em busca de arquivos markdown e para registrá-los no arquivo Makefile configurados de acordo com as preferências do usuário: o script responsável por isso é o Makeconf.
 
 ## Makeconf
 
-Após ser manualmente acionado e encontrar um markdown desconhecido dentro do projeto, o Makeconf, um script shell, pergunta ao usuário se quer incluí-lo no Makefile e, se o usuário quiser, o script iniciará uma configuração guiada que deverá ser preenchida pelo usuário. Com o término da configuração guiada, o Makeconf registrará no Makefile o path do novo arquivo markdown encontrado e a configuração com a qual o HTML resultante dele deve ser montado futuramente. Em seguida, o script continuará sua varredura de diretórios em busca de arquivos markdown, repetindo o ciclo até não encontrar mais documentos markdown.
+Uso: `$ ./Makeconf`
+
+Após ser manualmente acionado e encontrar um markdown `index.md` desconhecido dentro do projeto, o Makeconf, um script shell, pergunta ao usuário se quer incluí-lo no Makefile e, se o usuário quiser, o script iniciará uma configuração guiada que deverá ser preenchida pelo usuário. Com o término da configuração guiada, o Makeconf registrará no Makefile o path do novo arquivo markdown encontrado e a configuração com a qual o HTML resultante dele deve ser montado futuramente. Em seguida, o script continuará sua varredura de diretórios em busca de arquivos markdown, repetindo o ciclo até não encontrar mais documentos markdown.
+
+## O que é index.md?
+
+O `index.md` é o nome de arquivo markdown reconhecido pelos scripts do simpage como um alvo do processo de montagem. Por isso, arquivos markdown contendo nomes diferentes de `index.md`, como README.md, são ignorados. Além disso, é uma atitude recomendada armazenar apenas um `index.md` no interior de cada diretório de websites construídos com o simpage, para evitar-se conflitos ou comportamentos imprevisíveis.
