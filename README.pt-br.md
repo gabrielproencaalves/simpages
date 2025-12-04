@@ -1,3 +1,5 @@
+[Voltar](.)
+
 # simpages
 
 ## O que é?
